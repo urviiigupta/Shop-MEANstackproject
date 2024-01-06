@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous">
+    </script>
+   <script src="billscript.js"></script>
+
+
+    <form>
+        <div ng-app="myApp" ng-controller="customersCtrl">
+            <table>
+        <tr>  <td> BillNo <input type="number" id="billno" ng-model="objbill.billno"/>
+        </td>
+        </tr> 
+        <tr>
+            <td>
+            Date <input type="text" id="tdate" ng-model="objbill.billdate"/>
+        </td>
+        </tr>
+        <tr>
+          <td>  Customer Name <input type="text" id="cname" ng-model="objbill.customer"/> </td>
+        </tr>
+        </table>
+            <br>
+            <button type="button" ng-click="showitems()">Show items</button>
+
+            <div class="modal" ng-if="showModal">
+                <div class="modal-container"> 
+                <div class="modal-content">
+                  
+                    <table>
+                        <tr ng-repeat="x in arritems">
+                            <td>{{x.itemname}}</td>
+                            <td>{{x.rate}}</td>
+                            <td><button type="button" ng-click="additems(x)">+</button></td>
+                        </tr>
+                    </table>
+                    </div>
+                    <span class="close" ng-click="$parent.showModal = false">&times;</span>
+                </div>
+            </div>
+            <table ng-show="showorder">
+                <tr>
+                    <td>name</td>
+                    <td>qty</td>
+                    <td>rate</td>
+                    <td>amt</td>
+                </tr>
+                <tr ng-repeat="xtr in objbill.arritems">
+                    <td>{{xtr.itemname}} </td>
+                    <td><input type="text" ng-model="xtr.qty" ng-blur='updaterowamt(xtr)' ng-change="updaterowamt(xtr)" /> </td>
+                    <td ng-blur='updaterowamt(xtr)'>{{xtr.rate}}</span></td>
+                    <td>{{xtr.amt}} </td>
+                   <td> <button type="button" ng-click="removeitem(xtr)">-</button> </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        Total amount is : {{objbill.totalamt}}</td></tr>
+            </table>
+           
+            <button type="button" ng-click="savedata()">Submit</button>
+            <button type="button" ng-click="getdata()">Get All</button>
+            <br>
+            <br>
+            <table>
+                <tr ng-repeat="x in mybillno">
+                    <td>{{x.Billno}}</td>
+                    <td><button type="button" ng-click="getmoredetails(x.Billno)">get more details</button></td>
+                    <table class="details-table" ng-show="showDetails">
+                        <tr>
+                            <td colspan="5">
+                                <div ng-show="showDetails">
+                                    Bill no  : {{mydata.Billno}}
+                                </div>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div ng-show="showDetails">
+                                    Date :  {{mydata.Billdate | date:'shortDate'}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div ng-show="showDetails">
+                                    Customer name : {{mydata.Customername}}
+                                </div>
+                            </td>
+                        </tr>
+                        <br>
+                        <tr ng-repeat="y in mydata.Itemsarray">
+                            <td>{{y.itemname}}</td>
+                            <td>{{y.rate}}</td>
+                            <td>{{y.qty}}</td>
+                            <td>{{y.amt}}</td>
+                           
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div ng-show="showDetails"> 
+                                    Total Amount: {{mydata.Totalamt}}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+   
+</body>
+</html>

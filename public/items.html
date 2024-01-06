@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous">
+    </script>
+   <script src="itemscript.js"></script>
+        <form>
+        <div ng-app="myApp" ng-controller="customersCtrl">
+            <button type="button" ng-click="additem()">Add new item</button>
+            <table>
+                <tr ng-repeat="x in arritems">
+                <td><input type="text" class="itemname" ng-model="x.itemname"/> </td>
+                <td><input type="text" class="rate" ng-model="x.rate"/> </td>
+            </tr>
+            </table>
+            <button type="button" ng-click="saveitems()">Save</button>
+        </div>
+    </form>
+
+</body>
+</html>
