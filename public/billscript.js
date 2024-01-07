@@ -10,12 +10,13 @@ app.controller('customersCtrl', function($scope, $http) {
     $scope.objbill.totalamt=0;
 
     $scope.showModal = false;
-  
-
+    $scope.showModal2 = false;
+    $scope.showModal3 = false;
+    $scope.savedbillno = "";
   
     $scope.showitems=function()
     {
-        console.log('showitems called');
+        
         const apiUrl = 'http://localhost:5000/bill/api/items';
 
         // Create an object with the data you want to send
@@ -48,6 +49,12 @@ app.controller('customersCtrl', function($scope, $http) {
         obj.amt=x.rate;
     
         $scope.objbill.arritems.push(obj);
+
+        $scope.objbill.totalamt=0;
+        for(i=0;i<$scope.objbill.arritems.length;i++)
+        {
+            $scope.objbill.totalamt=$scope.objbill.totalamt+$scope.objbill.arritems[i].amt
+        }
         }
     
         $scope.updaterowamt=function(x)
@@ -65,6 +72,12 @@ app.controller('customersCtrl', function($scope, $http) {
             var index = $scope.objbill.arritems.indexOf(x);
             if (index !== -1) {
                 $scope.objbill.arritems.splice(index, 1);
+            }
+
+             $scope.objbill.totalamt=0;
+            for(i=0;i<$scope.objbill.arritems.length;i++)
+            {
+                $scope.objbill.totalamt=$scope.objbill.totalamt+$scope.objbill.arritems[i].amt
             }
         }
     
@@ -93,10 +106,11 @@ headers: {
 body: JSON.stringify(requestData), // Convert the data to a JSON string
 })
 .then(response => response.json())
-.then(data => {
+.then((data) => {
     // Handle the response data
-    console.log('Response:', data);
-    alert ("Data saved");
+    $scope.savedbillno=data.data
+    $scope.showModal2 = true;
+    $scope.$apply();
 
     document.getElementById('billno').value="";
     document.getElementById('tdate').value="";
@@ -140,7 +154,8 @@ headers: {
 })
 .then(response => response.json())
 .then(res => {
-    
+    $scope.showModal3 = true;
+    $scope.$apply();
     $scope.mybillno=res.data;
 
 
@@ -189,4 +204,12 @@ headers: {
 });
 }
 
+$scope.closeModal = function() {
+    $scope.showModal2 = false;
+    // Add any additional actions you want to perform when the modal is closed
+    $scope.mydata = null;
+    $scope.showDetails = false;
+
+
+};
 });

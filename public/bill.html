@@ -75,6 +75,10 @@
             <button type="button" ng-click="getdata()">Get All</button>
             <br>
             <br>
+            <div class="modal" ng-if="showModal3">
+                <div class="modal-container"> 
+                <div class="modal-content">
+                  
             <table>
                 <tr ng-repeat="x in mybillno">
                     <td>{{x.Billno}}</td>
@@ -119,6 +123,20 @@
                     </table>
                 </tr>
             </table>
+        </div>
+        <span class="close" ng-click="$parent.showModal3 = false">&times;</span>
+    </div>
+</div>
+            <div class="modal" ng-if="showModal2">
+                <div class="modal-container2"> 
+                    
+                    <h4>Thankyou for shopping !!</h4>
+                    <h5>Your Bill no is : {{savedbillno}}</h5>
+                    
+                    
+                    <span class="close" ng-click="closeModal()">&times;</span>
+                </div>
+            </div>
         </div>
     </form>
 

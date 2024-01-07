@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous">
+    </script>
+   <script src="summaryscript.js"></script>
+
+   <form>
+    <div ng-app="myApp" ng-controller="customersCtrl">
+        <button type="button" ng-click="getdata()">Get Summary</button>
+        <table>
+           <tr ng-show="showDetails">
+            <td>Item Name</td>
+            <td>Total Quantity</td>
+            <td>Total Amount</td>
+           </tr>
+            <tr ng-repeat="x in itemarray">
+            <td>{{x._id}}</td>
+            <td>{{x.totalQuantity}}</td>
+            <td>{{x.totalAmount}}</td>
+        </tr>
+        </table>
+    </div>
+</form>
+</body>
+</html>

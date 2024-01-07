@@ -10,7 +10,7 @@ const ItemSchema = new Schema({
   });
   
   const BillSchema = new Schema({
-    Billno: { type: String, default: '' },
+    Billno: { type: Number, default: '' },
     Billdate: { type: Date, default: Date.now },
     Customername: { type: String, default: '' },
     Itemsarray: [ItemSchema],
